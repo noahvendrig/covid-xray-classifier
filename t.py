@@ -5,6 +5,7 @@ import numpy as np
 import cv2
 from PIL import Image
 import os
+import time
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import BatchNormalization
@@ -36,6 +37,9 @@ class Classifier:
         self.X_test = []
         self.y_train = []
         self.y_test = []
+        self.model = Sequential()
+        
+        self.MODEL_NAME = f"6-conv-128-nodes-2-dense-{int(time.time())}.model"
 
 
     def ImageToArray(self, file):
@@ -76,17 +80,75 @@ class Classifier:
 
     def SplitDataset(self):
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X, self.y, test_size=0.2)
+    
+    def CreateModel(self):
+        self.model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same', input_shape=(150, 150, 3))) # shape = X.shape[1:]
+        self.model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+        self.model.add(MaxPooling2D((2, 2)))
+        self.model.add(Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+        self.model.add(Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+        self.model.add(MaxPooling2D((2, 2)))
+        self.model.add(Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+        self.model.add(Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+        self.model.add(MaxPooling2D((2, 2)))
 
+        # example output part of the model
+        self.model.add(Flatten())
+        self.model.add(Dense(128, activation='relu', kernel_initializer='he_uniform'))
+        self.model.add(Dense(3, activation='softmax')) # final layer dense 3 since we have 3 labels
+
+        # compile model
+        # opt = SGD(lr=0.001, momentum=0.9)
+        self.model.compile(
+                      loss='categorical_crossentropy',  # USE SPARSE if WE ARE USING THE ACTUAL NUMBERS E.G 1,2,3 BUT WE ALR 1HOT ENCODED THEM SO ITS G
+                      metrics=['accuracy'],
+                      optimizer='adam'
+                     )
+        print(self.model.summary())
+        
+   
+    def TrainModel(self):
+        history = self.model.fit(
+            self.X_train, 
+            self.y_train, 
+            epochs=9, 
+            batch_size=32, 
+            validation_data=(self.X_test,self.y_test)
+        )
+        
+    def EvaluateModel(self):
+        evaluate = self.model.evaluate(self.X_test, self.y_test, verbose=0)
+    
+    def SaveModel(self):
+#         NAME = f"{conv_layer}-conv-{layer_size}-nodes-{dense_layer}-dense-{int(time.time())}"
+        self.model.save(f"./{self.MODEL_NAME}")
+    
+    def Classify(self):
+        path = "./dataset/normal/images/Normal-10000.png"
+        actual_label = path.split("/")[-1]
+        img = ImageToArray(path)
+        img = (img[::2, ::2]/255).astype('float32')
+        new_img = tf.expand_dims(img, 0) # model expects a dataset so we expand_dims
+        self.prediction = self.model.predict(new_img)
+        self.prediction = np.argmax(prediction, axis=None, out=None) # convert from categorical back to index
+
+        print(f"Actual :- {actual_label}")
+        
+    
+    
 if __name__ == '__main__':
     # Only executed if you start this script as the main script,
-    # i.e. you enter 'python path/to/wumpus.py' in a terminal.
+    # i.e. you enter 'python path/to/main.py' in a terminal.
     # Assuming you saved the script in the directory 'path/to'
-    # and named it 'wumpus.py'.
-
-    # TODO: In the original game you can replay a dungeon (same positions of you and the threats)
+    # and named it 'main.py'.
 
     c1 = Classifier(['normal', 'covid', 'pneumonia'], [], [], "./dataset/")
     c1.ProcessImages()
     c1.ProcessArrays()
     c1.SplitDataset()
+    c1.CreateModel()
+    c1.TrainModel()
+    c1.EvaluateModel()
+    c1.SaveModel()
+#     c1.Classify()
     
