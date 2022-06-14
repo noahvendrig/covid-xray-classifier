@@ -41,4 +41,4 @@ if __name__ == '__main__':
     # i.e. you enter 'python path/to/main.py' in a terminal.
     # Assuming you saved the script in the directory 'path/to'
     # and named it 'main.py'.
-    c = Classifier("./6-conv-128-nodes-2-dense-1654689932.model", ["./dataset/normal/images/Normal-10000.png","./dataset/covid/images/COVID-3615.png"])
+    c = Classifier("6-conv-128-nodes-2-dense-1655171754.model", ["./dataset/normal/images/Normal-10000.png","./dataset/covid/images/COVID-3615.png"])

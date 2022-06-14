@@ -1,39 +1,70 @@
-from tkinter import *
-class MyWindow:
-    def __init__(self, win):
-        self.lbl1=Label(win, text='Model Path')
-        self.lbl2=Label(win, text='Img Paths')
-        self.lbl3=Label(win, text='Result')
-        self.t1=Entry(bd=3)
-        self.t2=Entry()
-        self.t3=Entry()
-        self.btn2=Button(win, text='Subtract')
-        self.lbl1.place(x=100, y=50)
-        self.t1.place(x=200, y=50)
-        self.lbl2.place(x=100, y=100)
-        self.t2.place(x=200, y=100)
-        self.b1=Button(win, text='Add', command=self.add)
-        self.b2=Button(win, text='Subtract')
-        self.b2.bind('<Button-1>', self.sub)
-        self.b1.place(x=100, y=150)
-        self.b2.place(x=200, y=150)
-        self.lbl3.place(x=100, y=200)
-        self.t3.place(x=200, y=200)
-    def add(self):
-        self.t3.delete(0, 'end')
-        num1=int(self.t1.get())
-        num2=int(self.t2.get())
-        result=num1+num2
-        self.t3.insert(END, str(result))
-    def sub(self, event):
-        self.t3.delete(0, 'end')
-        num1=int(self.t1.get())
-        num2=int(self.t2.get())
-        result=num1-num2
-        self.t3.insert(END, str(result))
+import tkinter as tk
+import tkinter.ttk as ttk
+import os
 
-window=Tk()
-mywin=MyWindow(window)
-window.title('Hello Python')
-window.geometry("400x300+10+10")
-window.mainloop()
+
+class UrlshortnerWidget(tk.Toplevel):
+    def __init__(self, master=None, **kw):
+        super(UrlshortnerWidget, self).__init__(master, **kw)
+        self.frm_main = tk.Frame(self)
+        self.lbl_app_name = tk.Label(self.frm_main)
+        self.lbl_app_name.configure(
+            anchor="n",
+            background="#6200c4",
+            font="{Arial} 24 {bold}",
+            foreground="#ffffff",
+        )
+        self.lbl_app_name.configure(
+            takefocus=False, text="Lung X-Ray Classifier")
+        self.lbl_app_name.pack(pady="30", side="top")
+        self.ent_long_url = tk.Entry(self.frm_main)
+        self.long_url = tk.StringVar(value="")
+        self.ent_long_url.configure(
+            font="{Arial} 12 {}",
+            justify="center",
+            state="normal",
+            textvariable=self.long_url,
+        )
+        self.ent_long_url.configure(validate="focusin", width="80")
+        self.ent_long_url.pack(side="top")
+        self.btn_shorten = tk.Button(self.frm_main)
+        self.btn_shorten.configure(
+            background="#ffffff",
+            font="{Arial} 16 {bold}",
+            foreground="#8000ff",
+            text="Click to Shorten",
+        )
+        self.btn_shorten.pack(pady="50", side="top")
+        self.btn_shorten.configure(command=self.make_short_link)
+        self.ent_short_url = tk.Entry(self.frm_main)
+        self.ent_short_url.configure(
+            background="#6200c4",
+            borderwidth="0",
+            font="{Arial} 24 {}",
+            foreground="#ffffff",
+        )
+        self.ent_short_url.configure(
+            justify="center",
+            readonlybackground="#6200c4",
+            relief="flat",
+            state="readonly",
+        )
+        self.ent_short_url.configure(width="25")
+        self.ent_short_url.pack(pady="50", side="top")
+        self.frm_main.configure(background="#6200c4",
+                                height="480", width="800")
+        self.frm_main.pack(side="top")
+        self.configure(background="#6200c4", height="200", width="200")
+        self.geometry("800x480")
+        self.resizable(False, False)
+        self.title("URL Shortner")
+
+    def make_short_link(self):
+        os.system('python predict.py')
+
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    widget = UrlshortnerWidget(root)
+    # widget.pack(expand=True, fill="both")
+    root.mainloop()
