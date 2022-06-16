@@ -36,29 +36,6 @@ class Classifier:
         print(f"Actual :- {actual_label}")
         print()
 
-import flask
-from waitress import serve
-
-
-
-app = Flask(__name__)
-
-@app.route('/')
-def home():
-    try:
-        os.rmdir("./spotify-2-mp3")
-    except Exception as e:
-        pass
-    # flash('Songs are downloading, Be Patient')
-    return render_template('home.html')
-
-
-serve(
-app.run()
-   host="127.0.0.1",
-   port=5000,
-   threads=2
-)
 
 if __name__ == '__main__':
     # Only executed if you start this script as the main script,

@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>X-Ray Classifier</title>
 </head>
-
 <body>
-    <form action="/">
-        <div></div> <input name="filepath">
-        <input type="submit" value="Submit">
+    <h1>X-ray Classifier</h1>
+
+    <form method='POST' enctype='multipart/form-data'>
+        {{form.hidden_tag()}}
+        {{form.file()}}
+        {{form.submit()}}
+
+        <!-- <img src="{{ user_image }}" alt="Uploaded Image"> -->
+        {{image|safe}}
     </form>
 </body>
-
 </html>
