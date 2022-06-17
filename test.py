@@ -1,5 +1,7 @@
 from flask import Flask
 
+from predict import main
+
 UPLOAD_FOLDER = 'static/files/'
 
 app = Flask(__name__)
@@ -33,12 +35,16 @@ def upload_image():
 	if file.filename == '':
 		flash('No image selected for uploading')
 		return redirect(request.url)
+
 	if file and allowed_file(file.filename):
 		filename = secure_filename(file.filename)
 		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 		#print('upload_image filename: ' + filename)
 		flash('Image successfully uploaded and displayed below')
+		main()
+
 		return render_template('i.html', filename=filename)
+
 	else:
 		flash('Allowed image types are -> png, jpg, jpeg, gif')
 		return redirect(request.url)

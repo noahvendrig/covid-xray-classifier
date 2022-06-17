@@ -36,10 +36,13 @@ class Classifier:
         print(f"Actual :- {actual_label}")
         print()
 
-
-if __name__ == '__main__':
+def main():
+    print("RUNNING MAIN")
+    # if __name__ == '__main__':
     # Only executed if you start this script as the main script,
     # i.e. you enter 'python path/to/main.py' in a terminal.
     # Assuming you saved the script in the directory 'path/to'
     # and named it 'main.py'.
-    c = Classifier("6-conv-128-nodes-2-dense-1655171754.model", ["./dataset/normal/images/Normal-10000.png","./dataset/covid/images/COVID-3615.png"])
+    c = Classifier("6-conv-128-nodes-2-dense-1654694547.model", ["./dataset/normal/images/Normal-10000.png" , "./dataset/covid/images/COVID-3615.png"])
+    # c = Classifier("6-conv-128-nodes-2-dense-1655171754.model", ["./dataset/normal/images/Normal-10000.png"])
+main()

@@ -132,7 +132,7 @@ if __name__ == '__main__':
     # i.e. you enter 'python path/to/main.py' in a terminal.
     # Assuming you saved the script in the directory 'path/to'
     # and named it 'main.py'.
-
+    
     c1 = Classifier(['normal', 'covid', 'pneumonia'], [], [], "./dataset/")
     c1.ProcessImages()
     c1.ProcessArrays()
