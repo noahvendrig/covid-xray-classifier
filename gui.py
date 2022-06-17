@@ -22,7 +22,7 @@ def home():
         filepath = os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],secure_filename(file.filename))
         file.save(filepath) # then save the file
         
-        return render_template('index.html', image=filepath)
+        # return render_template('index.html', image="static/files/"+file.filename)
 
     return render_template('index.html', form=form)
 
