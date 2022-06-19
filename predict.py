@@ -4,6 +4,8 @@ import tensorflow as tf
 import pickle
 import os
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 class Classifier:
 
     def __init__(self, model_path, img_paths):
@@ -32,9 +34,10 @@ class Classifier:
         self.prediction = self.model.predict(new_img)
         self.prediction = np.argmax(self.prediction, axis=None, out=None) # convert from categorical back to index
         
-        print(f"Predicted :- {self.labels[self.prediction]}")
-        print(f"Actual :- {actual_label}")
-        print()
+        # print(f"Predicted :- {self.labels[self.prediction]}")
+        # print(f"Actual :- {actual_label}")
+        # print()
+        self.prediction = self.labels[self.prediction]
 
 def main():
     print("RUNNING MAIN")
@@ -43,6 +46,9 @@ def main():
     # i.e. you enter 'python path/to/main.py' in a terminal.
     # Assuming you saved the script in the directory 'path/to'
     # and named it 'main.py'.
-    c = Classifier("6-conv-128-nodes-2-dense-1654694547.model", ["./dataset/normal/images/Normal-10000.png" , "./dataset/covid/images/COVID-3615.png"])
-    # c = Classifier("6-conv-128-nodes-2-dense-1655171754.model", ["./dataset/normal/images/Normal-10000.png"])
-main()
+    # c = Classifier("6-conv-128-nodes-2-dense-1654694547.model", ["./dataset/normal/images/Normal-10000.png" , "./dataset/covid/images/COVID-3615.png"])
+    res = Classifier("6-conv-128-nodes-2-dense-1655171754.model", ["./dataset/normal/images/Normal-10000.png"])
+    return res.prediction
+# main()
+
+print(main())

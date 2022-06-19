@@ -9,7 +9,9 @@ app.secret_key = "secret key"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
+from pathlib import Path
 
+# [f.unlink() for f in Path("./static/files").glob("*") if f.is_file()]  #remove all files in the folder
 
 import os
 # from app import app
@@ -24,7 +26,7 @@ def allowed_file(filename):
 	
 @app.route('/')
 def upload_form():
-	return render_template('i.html')
+	return render_template('i.html', )
 
 @app.route('/', methods=['POST'])
 def upload_image():
@@ -41,18 +43,19 @@ def upload_image():
 		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 		#print('upload_image filename: ' + filename)
 		flash('Image successfully uploaded and displayed below')
-		main()
-
-		return render_template('i.html', filename=filename)
+		prediction = main()
+		# print(prediction)
+		prediction = "eeee"
+		return render_template('i.html', filename=filename, prediction=prediction), 
 
 	else:
 		flash('Allowed image types are -> png, jpg, jpeg, gif')
 		return redirect(request.url)
 
 @app.route('/display/<filename>')
-def display_image(filename):
+def display_image(filename, prediction):
 	#print('display_image filename: ' + filename)
-	return redirect(url_for('static', filename='files/' + filename), code=301)
+	return redirect(url_for('static', filename='files/' + filename, prediction=prediction), code=301)
 
 if __name__ == "__main__":
     app.run(debug=True)
