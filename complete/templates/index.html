@@ -1,24 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>X-Ray Classifier</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/styles.css') }}">
 </head>
 
+
 <body>
-    <h1>X-ray Classifier</h1>
+    <title>Lung X-Ray Classifier</title>
+    <h2>Select a file to upload</h2>
+    <p>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    </p>
+    {% if filename %}
+    <div>
+        <p><b>Prediction: {{ prediction }}</b></p>
+    </div>
+    <div>
+        <img src="{{ url_for('display_image', filename=filename) }}">
+    </div>
+    {% endif %}
 
-    <form method='POST' enctype='multipart/form-data'>
-        {{form.hidden_tag()}}
-        {{form.file()}}
-        {{form.submit()}}
+    <!-- {% if prediction %}
+<div>
+    <p>{{ prediction }}</p>
+</div>
+{% endif %} -->
 
-        <!-- <img src="{{ user_image }}" alt="Uploaded Image"> -->
-        {{image|safe}}
+    <form method="post" action="/" enctype="multipart/form-data">
+        <dl>
+            <p>
+                <input type="file" name="file" autocomplete="off" required>
+            </p>
+        </dl>
+
+        <p>
+            <input type="submit" value="Submit">
+        </p>
     </form>
 </body>
-
-</html>

@@ -2,7 +2,7 @@ from flask import Flask
 
 from predict import predict
 import cv2
-
+from waitress import serve
 
 UPLOAD_FOLDER = 'static/files/'
 
@@ -45,7 +45,7 @@ def allowed_file(filename):
 	
 @app.route('/')
 def upload_form():
-	return render_template('i.html', )
+	return render_template('index.html', )
 
 @app.route('/', methods=['POST'])
 def upload_image():
@@ -71,7 +71,7 @@ def upload_image():
 		im = [im]
 		print(path)
 		prediction = predict([path])
-		return render_template('i.html', filename=filename, prediction=prediction)
+		return render_template('index.html', filename=filename, prediction=prediction)
 
 	else:
 		flash('Allowed image types are -> png, jpg, jpeg, gif')
@@ -84,6 +84,7 @@ def display_image(filename):
     
 def application():
     # clear_dir("./static/files/")
-    app.run(host="0.0.0.0")
+	serve(app,  host="0.0.0.0", port=8080)
+    # app.run(host="0.0.0.0")
     # app.run(debug=True, host="0.0.0.0") # only for development
 # main()
