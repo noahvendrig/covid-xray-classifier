@@ -90,7 +90,7 @@ def display_image(filename):
     
 def application():
     # clear_dir("./static/files/")]
-	port = 6942
+	port = 5000
 
 	hostname=socket.gethostname()
 	ip_addr=socket.gethostbyname(hostname)
