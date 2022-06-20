@@ -5,3 +5,11 @@ body {
 button {
     border-radius: 5px;
 }
+
+h2 {
+    margin-bottom: 20px;
+}
+
+form {
+    margin-top: 50px;
+}

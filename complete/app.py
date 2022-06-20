@@ -21,6 +21,11 @@ import urllib.request
 from flask import Flask, flash, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
 
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR) # only log errors in flask app, nothing else so that console isn't cluttered
+
+
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 # def clear_dir(dir):
@@ -84,15 +89,15 @@ def display_image(filename):
 
     
 def application():
-    # clear_dir("./static/files/")
+    # clear_dir("./static/files/")]
+	port = 6942
+
 	hostname=socket.gethostname()
 	ip_addr=socket.gethostbyname(hostname)
-	print(f"App Hosted at {ip_addr}:8080")
-	serve(app,  host="0.0.0.0", port=8080)
-	
-	
-    # app.run(host="0.0.0.0")
+	print(f"App Hosted at {ip_addr}:{port}")
+	# serve(app,  host="0.0.0.0", port=port)
+	app.run(host="0.0.0.0")
     # app.run(debug=True, host="0.0.0.0") # only for development
 # main()
 
-application()
+# application()
