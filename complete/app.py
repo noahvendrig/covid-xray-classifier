@@ -12,7 +12,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 from pathlib import Path
-
+import socket
 # [f.unlink() for f in Path("./static/files").glob("*") if f.is_file()]  #remove all files in the folder
 
 import os
@@ -28,7 +28,7 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 # 	os.mkdir(dir)
 
 def resize(im):
-	print(im)
+	# print(im)
 	h, w, channels = im.shape
 
 	max_h = int(500)
@@ -37,7 +37,7 @@ def resize(im):
 	dims = (resized_w, resized_h)
 	# resized_im = im.resize(im, (resized_w, resized_h))
 	resized_im = cv2.resize(im, dims)
-	print(resized_im.shape)
+	# print(resized_im.shape)
 	return resized_im
 
 def allowed_file(filename):
@@ -69,8 +69,9 @@ def upload_image():
 		# flash('Image successfully uploaded and displayed below')
 		#["./dataset/normal/images/Normal-10000.png"]
 		im = [im]
-		print(path)
+		print(f"Image Saved To {path}")
 		prediction = predict([path])
+		print(f"Prediction: {prediction}")
 		return render_template('index.html', filename=filename, prediction=prediction)
 
 	else:
@@ -84,7 +85,14 @@ def display_image(filename):
     
 def application():
     # clear_dir("./static/files/")
+	hostname=socket.gethostname()
+	ip_addr=socket.gethostbyname(hostname)
+	print(f"App Hosted at {ip_addr}:8080")
 	serve(app,  host="0.0.0.0", port=8080)
+	
+	
     # app.run(host="0.0.0.0")
     # app.run(debug=True, host="0.0.0.0") # only for development
 # main()
+
+application()

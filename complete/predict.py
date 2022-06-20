@@ -60,3 +60,4 @@ def predict(input):
 # main(["./dataset/normal/images/Normal-10000.png"])
 
 # print(main())
+# predict(["./dataset/normal/images/Normal-10000.png"])
