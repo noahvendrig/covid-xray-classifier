@@ -1,6 +1,6 @@
 from flask import Flask
 
-from predict import main
+from predict import predict
 import cv2
 
 
@@ -23,11 +23,15 @@ from werkzeug.utils import secure_filename
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
+# def clear_dir(dir):
+#     os.rmdir(dir)
+# 	os.mkdir(dir)
+
 def resize(im):
 	print(im)
 	h, w, channels = im.shape
 
-	max_h = int(400)
+	max_h = int(500)
 	ratio = w/h
 	resized_w, resized_h = int(round(max_h*ratio)), max_h
 	dims = (resized_w, resized_h)
@@ -66,7 +70,7 @@ def upload_image():
 		#["./dataset/normal/images/Normal-10000.png"]
 		im = [im]
 		print(path)
-		prediction = main([path])
+		prediction = predict([path])
 		return render_template('i.html', filename=filename, prediction=prediction)
 
 	else:
@@ -77,5 +81,9 @@ def upload_image():
 def display_image(filename):
 	return redirect(url_for('static', filename='files/' + filename), code=301)
 
-if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")
+    
+def application():
+    # clear_dir("./static/files/")
+    app.run(host="0.0.0.0")
+    # app.run(debug=True, host="0.0.0.0") # only for development
+# main()
