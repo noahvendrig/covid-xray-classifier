@@ -9,13 +9,16 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/styles.css') }}">
+
 </head>
 
 
 <body>
-    <title>Lung X-Ray Classifier</title>
-    <h2>Lung X-Ray Classifier</h2>
+    <title>Chest X-Ray Classifier</title>
+    <h2>Chest X-Ray Classifier</h2>
     <p>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -27,30 +30,33 @@
     {% endif %}
     {% endwith %}
     </p>
-    {% if filename %}
-    <div>
-        <p><b>Prediction: {{ prediction }}</b></p>
+
+    <div class="row">
+        {% if filename %}
+        <div>
+            <p><b>Prediction: {{ prediction }}</b></p>
+        </div>
+        <!-- <div class="col upl-img">
+            <img src="{{ url_for('display_image', filename=filename) }}">
+        </div> -->
+        {% endif %}
+        <div class="col upl-img">
+            <img src="static/files/covid-12.png">
+        </div>
+
+        <div class="col">
+            <form method="post" action="/" enctype="multipart/form-data">
+                <dl>
+                    <input type="file" class="filestyle" data-classButton="btn btn-primary" name="file"
+                        autocomplete="off" required>
+                    <!-- <input type="file" name="file" autocomplete="off" required> -->
+                </dl>
+
+                <p>
+                    <input type="submit" value="Submit Image" class="btn btn-primary">
+                </p>
+            </form>
+        </div>
+
     </div>
-    <div>
-        <img src="{{ url_for('display_image', filename=filename) }}">
-    </div>
-    {% endif %}
-
-    <!-- {% if prediction %}
-<div>
-    <p>{{ prediction }}</p>
-</div>
-{% endif %} -->
-
-    <form method="post" action="/" enctype="multipart/form-data">
-        <dl>
-            <p>
-                <input type="file" name="file" autocomplete="off" required>
-            </p>
-        </dl>
-
-        <p>
-            <input type="submit" value="Submit">
-        </p>
-    </form>
 </body>

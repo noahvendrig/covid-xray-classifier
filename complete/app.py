@@ -65,7 +65,7 @@ def upload_image():
 	if file and allowed_file(file.filename):
 		filename = secure_filename(file.filename)
 		path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-		file.save(path)
+		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 		#print('upload_image filename: ' + filename)
 		im = cv2.imread(path) # read 
 		os.remove(path)
@@ -96,8 +96,8 @@ def application():
 	ip_addr=socket.gethostbyname(hostname)
 	print(f"App Hosted at {ip_addr}:{port}")
 	# serve(app,  host="0.0.0.0", port=port)
-	app.run(host="0.0.0.0")
-    # app.run(debug=True, host="0.0.0.0") # only for development
-# main()
 
-# application()
+	app.run(host='0.0.0.0', port=port, debug=True)
+    # app.run(debug=True, host="0.0.0.0") # only for development
+
+application()
