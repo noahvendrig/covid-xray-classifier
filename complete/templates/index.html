@@ -9,9 +9,10 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+    <!-- <script type="text/javascript" src="static/js/bootstrap-filestyle.min.js"> </script> -->
 
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/s.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static',filename='styles/styles.css') }}"> -->
 
 </head>
 
@@ -32,30 +33,40 @@
     </p>
 
     <div class="row">
-        {% if filename %}
-        <div>
-            <p><b>Prediction: {{ prediction }}</b></p>
-        </div>
-        <!-- <div class="col upl-img">
+        <div class="col form">
+            <form method="post" action="/" enctype="multipart/form-data">
+                <div class="cont">
+
+                    <dl>
+                        <input type="file" class="filestyle" data-classButton="btn btn-primary" name="file"
+                            autocomplete="off" required>
+                        <!-- <input type="file" name="file" autocomplete="off" required> -->
+                    </dl>
+
+                    <p>
+                        <input type="submit" value="Submit Image" class="btn btn-primary submit">
+                    </p>
+                </div>
+
+            </form>
+
+            {% if filename %}
+            <div>
+                <p><b>Prediction: {{ prediction }}</b></p>
+            </div>
+            <!-- <div class="col upl-img">
             <img src="{{ url_for('display_image', filename=filename) }}">
         </div> -->
-        {% endif %}
-        <div class="col upl-img">
-            <img src="static/files/covid-12.png">
+            {% endif %}
         </div>
+        <div class="col upl-img">
+            <!-- <img src="static/files/covid-12.png"> -->
+            {% if filename %}
+            <img src="{{ url_for('display_image', filename=filename) }}">
+            {% else %}
+            <div style="background-color:white; height:150px; width:150px;"></div>
 
-        <div class="col">
-            <form method="post" action="/" enctype="multipart/form-data">
-                <dl>
-                    <input type="file" class="filestyle" data-classButton="btn btn-primary" name="file"
-                        autocomplete="off" required>
-                    <!-- <input type="file" name="file" autocomplete="off" required> -->
-                </dl>
-
-                <p>
-                    <input type="submit" value="Submit Image" class="btn btn-primary">
-                </p>
-            </form>
+            {% endif %}
         </div>
 
     </div>

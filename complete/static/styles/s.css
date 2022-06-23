@@ -1,0 +1,89 @@
+html {
+    margin-left: 40px;
+}
+
+button {
+    border-radius: 5px;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+form {
+    margin-top: 20px;
+}
+
+.btn {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width : 815px) {
+    /*815 px is where the input buttons overlap image so we change to mobile view here*/
+
+    /* Styles */
+
+    .row {
+        column-count: 2;
+        column-gap: 40px;
+
+    }
+
+    .form {
+        /* width: 50%; */
+        margin: 0 auto;
+
+        top: 50%
+    }
+
+    .upl-img {
+        column-width: 200px;
+    }
+
+    .cont {
+        /* display: inline-block; */
+        width: 199px;
+        position: relative;
+        /* top: 50%; */
+        left: 20px;
+        vertical-align: middle;
+    }
+
+    .filestyle {
+        right: 30px;
+    }
+
+    .submit {
+        left: 100px;
+    }
+}
+
+/* Phone screens ----------- */
+@media only screen and (min-width : 530px) and (max-width : 815px) {
+
+    /* Styles */
+    body {
+        background-color: lightblue;
+    }
+}
+
+.row::before {
+    background-color: gold;
+}
+
+@media only screen and (max-width : 530px) {
+
+    /* Styles */
+    body {
+        background-color: lightgreen;
+    }
+
+    .upl-img img {
+        height: auto;
+        width: 90%;
+    }
+}

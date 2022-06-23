@@ -1,4 +1,4 @@
-body {
+html {
     margin-left: 40px;
 }
 
@@ -37,43 +37,45 @@ dl .filestyle {
 }
 
 /* Desktops and laptops ----------- */
-@media only screen and (min-width : 500px) {
+@media only screen and (min-width : 550px) {
 
 
     /* Styles */
     .col {
-        float: left;
-        width: 30%;
+        /* float: left; */
+        width: 40%;
+        display: inline-block;
     }
 
     /* Clear floats after the columns */
     .row:after {
+        white-space: nowrap;
         content: "";
         display: table;
         clear: both;
     }
 
     .upl-img {
-        height: 500px;
-        width: 500px;
-        border: 1px solid black;
+
+        /* height: 500px;
+        width: 500px; */
         margin: 4px;
-        margin-right: 20px;
+        /* margin-right: 120px; */
     }
 
-    .upl-img img {
-        max-width: 100%;
-        max-height: 100%;
-        display: block;
-        margin: 0 auto;
-
-        height: auto;
-        width: auto
+    .filestyle {
+        width: 50%
     }
+
+    .form {
+        margin-left: 70px;
+        transform: scale(1.2);
+    }
+
 }
 
 /* Phone screens ----------- */
-@media only screen and (max-width : 499px) {
+@media only screen and (max-width : 550px) {
 
     /* Styles */
     body {

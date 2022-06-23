@@ -36,9 +36,11 @@ def resize(im):
 	# print(im)
 	h, w, channels = im.shape
 
-	max_h = int(500)
-	ratio = w/h
-	resized_w, resized_h = int(round(max_h*ratio)), max_h
+	# max_h = int(500)
+	max_w = 500
+	ratio = h/w
+	# resized_w, resized_h = int(round(max_h*ratio)), max_h
+	resized_h, resized_w = int(round(max_w*ratio)), max_w
 	dims = (resized_w, resized_h)
 	# resized_im = im.resize(im, (resized_w, resized_h))
 	resized_im = cv2.resize(im, dims)
@@ -66,11 +68,13 @@ def upload_image():
 		filename = secure_filename(file.filename)
 		path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
 		#print('upload_image filename: ' + filename)
 		im = cv2.imread(path) # read 
 		os.remove(path)
 		im = resize(im)
 		cv2.imwrite(path, im)
+		# filename = path
 		# flash('Image successfully uploaded and displayed below')
 		#["./dataset/normal/images/Normal-10000.png"]
 		im = [im]
