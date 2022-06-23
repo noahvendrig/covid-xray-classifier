@@ -55,7 +55,10 @@ def predict(input):
     # Assuming you saved the script in the directory 'path/to'
     # and named it 'main.py'.
     # c = Classifier("6-conv-128-nodes-2-dense-1654694547.model", ["./dataset/normal/images/Normal-10000.png" , "./dataset/covid/images/COVID-3615.png"])
-    res = Classifier("6-conv-128-nodes-2-dense-1655171754.model", input)
+
+
+    # res = Classifier("6-conv-128-nodes-2-dense-1655171754.model", input)
+    res = Classifier("6-conv-128-nodes-2-dense-1654694547.model", input)
     return res.prediction
 # main(["./dataset/normal/images/Normal-10000.png"])
 
