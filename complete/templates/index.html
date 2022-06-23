@@ -47,17 +47,19 @@
                         <input type="submit" value="Submit Image" class="btn btn-primary submit">
                     </p>
                 </div>
+                {% if filename %}
+                <div class="prediction">
+                    <p><b>Prediction: {{ prediction }}</b></p>
+                </div>
 
-            </form>
 
-            {% if filename %}
-            <div>
-                <p><b>Prediction: {{ prediction }}</b></p>
-            </div>
-            <!-- <div class="col upl-img">
+                <!-- <div class="col upl-img">
             <img src="{{ url_for('display_image', filename=filename) }}">
         </div> -->
-            {% endif %}
+                {% endif %}
+            </form>
+
+
         </div>
         <div class="col upl-img">
             <!-- <img src="static/files/covid-12.png"> -->

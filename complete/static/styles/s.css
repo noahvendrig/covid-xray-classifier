@@ -36,7 +36,7 @@ form {
     .form {
         /* width: 50%; */
         margin: 0 auto;
-
+        width: 80%;
         top: 50%
     }
 
@@ -46,11 +46,11 @@ form {
 
     .cont {
         /* display: inline-block; */
-        width: 199px;
+
         position: relative;
         /* top: 50%; */
-        left: 20px;
         vertical-align: middle;
+        width: 150px;
     }
 
     .filestyle {
@@ -60,6 +60,12 @@ form {
     .submit {
         left: 100px;
     }
+
+    .prediction {
+        right: 300px;
+        justify-content: end;
+    }
+
 }
 
 /* Phone screens ----------- */
