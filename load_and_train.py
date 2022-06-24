@@ -49,7 +49,11 @@ class Classifier:
 
 
     def ProcessImages(self):
-
+        import tensorflow as tf
+        if tf.test.gpu_device_name():
+            print('Default GPU Device: {}'.format(tf.test.gpu_device_name()))
+        else:
+            print("Please install GPU version of TF")
         # labels= ['normal','covid','pneumonia']
         # X = []
         names = []  # not used, but just for seeing the file names
@@ -57,6 +61,7 @@ class Classifier:
 
         for label in self.labels:
             # index cos doing all the files is too intensive
+            
             for filename in os.listdir(self.path+label+"/images/")[:5]:
                 # dont run this yet with all cos it will crash # divide by 255 to normalise the data
                 file = str(f"{self.path}{label}/images/{filename}")
@@ -66,7 +71,7 @@ class Classifier:
                 label_index = self.labels.index(label)
                 self.X.append(arr)
                 self.y = np.append(self.y, label_index)
-
+            print(f"DONE: {label}")
 
     def ProcessArrays(self):
         self.X = np.array(self.X)
@@ -104,14 +109,14 @@ class Classifier:
                       metrics=['accuracy'],
                       optimizer='adam'
                      )
-        print(self.model.summary())
+        # print(self.model.summary())
         
    
     def TrainModel(self):
         history = self.model.fit(
             self.X_train, 
             self.y_train, 
-            epochs=9, 
+            epochs=10, 
             batch_size=32, 
             validation_data=(self.X_test,self.y_test)
         )
