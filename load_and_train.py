@@ -28,15 +28,18 @@ import pickle
 
 if tf.test.gpu_device_name():
     print('Default GPU Device: {}'.format(tf.test.gpu_device_name()))
+    is_gpu = len(tf.config.list_physical_devices('GPU')) > 0 
+    # print(is_gpu)
 else:
     print("Please install GPU version of TF")
 
 
 class Classifier:
-    def __init__(self, labels, X, y, path):
+    def __init__(self, labels, path):
         self.labels = labels
-        self.X = X
-        self.y = y
+        print(labels)
+        self.X = []
+        self.y = []
         self.path = path
 
         self.X_train = []
@@ -45,7 +48,7 @@ class Classifier:
         self.y_test = []
         self.model = Sequential()
         
-        self.MODEL_NAME = f"6-conv-128-nodes-2-dense-{int(time.time())}.model"
+        self.MODEL_NAME = ""
 
 
     def ImageToArray(self, file):
@@ -68,7 +71,7 @@ class Classifier:
         for label in self.labels:
             # index cos doing all the files is too intensive
             
-            for filename in os.listdir(self.path+label+"/images/")[:5000]:
+            for filename in os.listdir(self.path+label+"/images/")[:3615]:#[:3615]:
                 # dont run this yet with all cos it will crash # divide by 255 to normalise the data
                 file = str(f"{self.path}{label}/images/{filename}")
                 arr = self.ImageToArray(file)
@@ -93,6 +96,7 @@ class Classifier:
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X, self.y, test_size=0.2)
     
     def CreateModel(self):
+        # print(self.labels)
         self.model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same', input_shape=(150, 150, 3))) # shape = X.shape[1:]
         self.model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
         self.model.add(MaxPooling2D((2, 2)))
@@ -106,33 +110,38 @@ class Classifier:
         # example output part of the model
         self.model.add(Flatten())
         self.model.add(Dense(128, activation='relu', kernel_initializer='he_uniform'))
-        self.model.add(Dense(3, activation='softmax')) # final layer dense 3 since we have 3 labels
+        self.model.add(Dense(len(self.labels), activation='softmax')) # final layer dense 2 since we have 2 labels
 
         # compile model
         # opt = SGD(lr=0.001, momentum=0.9)
         self.model.compile(
-                      loss='categorical_crossentropy',  # USE SPARSE if WE ARE USING THE ACTUAL NUMBERS E.G 1,2,3 BUT WE ALR 1HOT ENCODED THEM SO ITS G
+                      loss='binary_crossentropy',  # USE SPARSE if WE ARE USING THE ACTUAL NUMBERS E.G 1,2,3 BUT WE ALR 1HOT ENCODED THEM SO ITS G
                       metrics=['accuracy'],
                       optimizer='adam'
                      )
-        # print(self.model.summary())
+        print(self.model.summary())
         
    
     def TrainModel(self):
+        # print(self.X_train.shape)
+        # print(self.y_train.shape)
+
         history = self.model.fit(
             self.X_train, 
             self.y_train, 
-            epochs=10, 
+            epochs=20, 
             batch_size=32, 
             validation_data=(self.X_test,self.y_test)
         )
         
     def EvaluateModel(self):
         evaluate = self.model.evaluate(self.X_test, self.y_test, verbose=0)
-    
+        print(evaluate)
+
     def SaveModel(self):
 #         NAME = f"{conv_layer}-conv-{layer_size}-nodes-{dense_layer}-dense-{int(time.time())}"
-        self.model.save(f"./{self.MODEL_NAME}")        
+        
+        self.model.save(f"./6-conv-128-nodes-2-dense-{int(time.time())}.model")        
         
         f = open('labels.pickle', "wb")
         f.write(pickle.dumps(self.labels))
@@ -144,13 +153,12 @@ if __name__ == '__main__':
     # Assuming you saved the script in the directory 'path/to'
     # and named it 'main.py'.
     
-    # c1 = Classifier(['normal', 'covid', 'pneumonia'], [], [], "./dataset/")
-    # c1.ProcessImages()
-    # c1.ProcessArrays()
-    # c1.SplitDataset()
-    # c1.CreateModel()
-    # c1.TrainModel()
-    # c1.EvaluateModel()
-    # c1.SaveModel()
-    pass
+    c1 = Classifier(['normal', 'covid'], "./dataset/")
+    c1.ProcessImages()
+    c1.ProcessArrays()
+    c1.SplitDataset()
+    c1.CreateModel()
+    c1.TrainModel()
+    c1.EvaluateModel()
+    c1.SaveModel()
     

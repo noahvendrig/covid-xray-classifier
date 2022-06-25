@@ -37,7 +37,7 @@ class Classifier:
 
         try:
             self.prediction = self.model.predict(new_img) # returns list with probabilities of being each label
-            print(self.prediction[0])
+            # print(self.prediction[0])
             self.prediction = np.argmax(self.prediction, axis=None, out=None) # convert from categorical back to index
             # print(f"Predicted :- {self.labels[self.prediction]}")
             # print(f"Actual :- {actual_label}")
@@ -58,9 +58,9 @@ def predict(input):
 
 
     # res = Classifier("6-conv-128-nodes-2-dense-1655171754.model", input)
-    res = Classifier("6-conv-128-nodes-2-dense-1654694547.model", input)
+    res = Classifier("6-conv-128-nodes-2-dense-1656148579.model", input)
     return res.prediction
 # main(["./dataset/normal/images/Normal-10000.png"])
 
 # print(main())
-# predict(["./dataset/normal/images/Normal-10000.png"])
+# print(predict(["./dataset/normal/images/Normal-10000.png"]))
