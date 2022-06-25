@@ -5,3 +5,4 @@ devstuff/
 */.ipynb_checkpoints/*
 .vscode/
 __pycache__/
+complete\output\cli
