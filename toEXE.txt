@@ -1,0 +1,1 @@
+pyinstaller --noconfirm --onefile --console --icon "F:/Users/elect_09l/github/covid-xray-classifier/complete/static/images/icon.ico" --add-data "F:/Users/elect_09l/github/covid-xray-classifier/complete;complete/"  "F:/Users/elect_09l/github/covid-xray-classifier/complete/cli.py"

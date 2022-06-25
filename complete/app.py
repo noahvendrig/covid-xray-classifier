@@ -3,10 +3,16 @@ from flask import Flask
 from predict import predict
 import cv2
 from waitress import serve
+import sys
+import os
 
 UPLOAD_FOLDER = 'static/files/'
 
-app = Flask(__name__)
+
+templatesDir = './templates'
+staticDir = './static'
+app = Flask(__name__, template_folder=templatesDir, static_folder=staticDir)
+
 app.secret_key = "secret key"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
@@ -25,26 +31,19 @@ import logging
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR) # only log errors in flask app, nothing else so that console isn't cluttered
 
-
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
-
-# def clear_dir(dir):
-#     os.rmdir(dir)
-# 	os.mkdir(dir)
 
 def resize(im):
 	# print(im)
 	h, w, channels = im.shape
-
-	# max_h = int(500)
 	max_w = 500
 	ratio = h/w
-	# resized_w, resized_h = int(round(max_h*ratio)), max_h
+
 	resized_h, resized_w = int(round(max_w*ratio)), max_w
 	dims = (resized_w, resized_h)
-	# resized_im = im.resize(im, (resized_w, resized_h))
+
 	resized_im = cv2.resize(im, dims)
-	# print(resized_im.shape)
+
 	return resized_im
 
 def allowed_file(filename):
@@ -69,14 +68,11 @@ def upload_image():
 		path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-		#print('upload_image filename: ' + filename)
 		im = cv2.imread(path) # read 
 		os.remove(path)
 		im = resize(im)
 		cv2.imwrite(path, im)
-		# filename = path
-		# flash('Image successfully uploaded and displayed below')
-		#["./dataset/normal/images/Normal-10000.png"]
+
 		im = [im]
 		print(f"Image Saved To {path}")
 		prediction = predict([path])
@@ -93,14 +89,15 @@ def display_image(filename):
 
     
 def application():
-    # clear_dir("./static/files/")]
 	port = 5000
-
 	hostname=socket.gethostname()
 	ip_addr=socket.gethostbyname(hostname)
-	
-	serve(app,  host="0.0.0.0", port=port)
 
-	# app.run(host='0.0.0.0', port=port, debug=True)
+	print(f"App Hosted at {ip_addr}:{port}") #indicate where the app is hosted
+	# serve(app,  host="0.0.0.0", port=port)
+
+	app.run(host='0.0.0.0', debug=False)
     # app.run(debug=True, host="0.0.0.0") # only for development
-	print(f"App Hosted at {ip_addr}:{port}")
+	
+
+# application() # not needed since running from cli.py

@@ -25,6 +25,10 @@ from sklearn.model_selection import train_test_split
 
 import pickle
 
+if tf.test.gpu_device_name():
+            print('Default GPU Device: {}'.format(tf.test.gpu_device_name()))
+        else:
+            print("Please install GPU version of TF")
 
 if tf.test.gpu_device_name():
     print('Default GPU Device: {}'.format(tf.test.gpu_device_name()))
@@ -34,7 +38,7 @@ else:
     print("Please install GPU version of TF")
 
 
-class Classifier:
+class ModelGenerator:
     def __init__(self, labels, path):
         self.labels = labels
         print(labels)
@@ -50,29 +54,20 @@ class Classifier:
         
         self.MODEL_NAME = ""
 
-
     def ImageToArray(self, file):
         img_arr = cv2.imread(file)   # reads an image in the BGR format
         img_arr = cv2.cvtColor(img_arr, cv2.COLOR_BGR2RGB)   # BGR -> RGB
         return img_arr
 
-
     def ProcessImages(self):
-        import tensorflow as tf
-        if tf.test.gpu_device_name():
-            print('Default GPU Device: {}'.format(tf.test.gpu_device_name()))
-        else:
-            print("Please install GPU version of TF")
-        # labels= ['normal','covid','pneumonia']
-        # X = []
+        
         names = []  # not used, but just for seeing the file names
-        # y = []
 
         for label in self.labels:
             # index cos doing all the files is too intensive
             
-            for filename in os.listdir(self.path+label+"/images/")[:3615]:#[:3615]:
-                # dont run this yet with all cos it will crash # divide by 255 to normalise the data
+            for filename in os.listdir(self.path+label+"/images/")[:3615] # only 3615 files available
+                # divide by 255 to normalise the data
                 file = str(f"{self.path}{label}/images/{filename}")
                 arr = self.ImageToArray(file)
                 # having issues with appending np array (it clears the array each time, so we conver to python list first and then make the whole thing a np array later
@@ -153,12 +148,12 @@ if __name__ == '__main__':
     # Assuming you saved the script in the directory 'path/to'
     # and named it 'main.py'.
     
-    c1 = Classifier(['normal', 'covid'], "./dataset/")
-    c1.ProcessImages()
-    c1.ProcessArrays()
-    c1.SplitDataset()
-    c1.CreateModel()
-    c1.TrainModel()
-    c1.EvaluateModel()
-    c1.SaveModel()
+    gen = ModelGenerator(['normal', 'covid'], "./dataset/")
+    gen.ProcessImages()
+    gen.ProcessArrays()
+    gen.SplitDataset()
+    gen.CreateModel()
+    gen.TrainModel()
+    gen.EvaluateModel()
+    gen.SaveModel()
     
