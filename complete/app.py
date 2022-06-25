@@ -98,10 +98,9 @@ def application():
 
 	hostname=socket.gethostname()
 	ip_addr=socket.gethostbyname(hostname)
-	print(f"App Hosted at {ip_addr}:{port}")
-	# serve(app,  host="0.0.0.0", port=port)
+	
+	serve(app,  host="0.0.0.0", port=port)
 
-	app.run(host='0.0.0.0', port=port, debug=True)
+	# app.run(host='0.0.0.0', port=port, debug=True)
     # app.run(debug=True, host="0.0.0.0") # only for development
-
-application()
+	print(f"App Hosted at {ip_addr}:{port}")
