@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import cv2
-from PIL import Image
+# from PIL import Image
 import os
 import time
 
@@ -24,6 +24,12 @@ from keras.utils import np_utils
 from sklearn.model_selection import train_test_split
 
 import pickle
+
+
+if tf.test.gpu_device_name():
+    print('Default GPU Device: {}'.format(tf.test.gpu_device_name()))
+else:
+    print("Please install GPU version of TF")
 
 
 class Classifier:
@@ -62,7 +68,7 @@ class Classifier:
         for label in self.labels:
             # index cos doing all the files is too intensive
             
-            for filename in os.listdir(self.path+label+"/images/")[:5]:
+            for filename in os.listdir(self.path+label+"/images/")[:5000]:
                 # dont run this yet with all cos it will crash # divide by 255 to normalise the data
                 file = str(f"{self.path}{label}/images/{filename}")
                 arr = self.ImageToArray(file)
@@ -138,12 +144,13 @@ if __name__ == '__main__':
     # Assuming you saved the script in the directory 'path/to'
     # and named it 'main.py'.
     
-    c1 = Classifier(['normal', 'covid', 'pneumonia'], [], [], "./dataset/")
-    c1.ProcessImages()
-    c1.ProcessArrays()
-    c1.SplitDataset()
-    c1.CreateModel()
-    c1.TrainModel()
-    c1.EvaluateModel()
-    c1.SaveModel()
+    # c1 = Classifier(['normal', 'covid', 'pneumonia'], [], [], "./dataset/")
+    # c1.ProcessImages()
+    # c1.ProcessArrays()
+    # c1.SplitDataset()
+    # c1.CreateModel()
+    # c1.TrainModel()
+    # c1.EvaluateModel()
+    # c1.SaveModel()
+    pass
     
