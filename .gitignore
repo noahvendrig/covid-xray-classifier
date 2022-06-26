@@ -1,7 +1,5 @@
-complete/output/cli/*
-dataset/
-BUILD1
-devstuff/
+app/builds/*
+app/dataset/*
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
 .vscode/
