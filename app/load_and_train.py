@@ -26,9 +26,9 @@ from sklearn.model_selection import train_test_split
 import pickle
 
 if tf.test.gpu_device_name():
-            print('Default GPU Device: {}'.format(tf.test.gpu_device_name()))
-        else:
-            print("Please install GPU version of TF")
+    print('Default GPU Device: {}'.format(tf.test.gpu_device_name()))
+else:
+    print("Please install GPU version of TF")
 
 if tf.test.gpu_device_name():
     print('Default GPU Device: {}'.format(tf.test.gpu_device_name()))

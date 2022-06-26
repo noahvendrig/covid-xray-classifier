@@ -112,10 +112,10 @@ def display_image(filename):
 	"""Display the uploaded image
 
 	Args:
-		filename (str): _description_
+		filename (str): Filename of uploaded file
 
 	Returns:
-		_type_: _description_
+		redirect: _description_
 	"""
 	return redirect(url_for('static', filename='files/' + filename), code=301)
 

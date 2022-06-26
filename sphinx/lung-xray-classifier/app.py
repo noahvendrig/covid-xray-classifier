@@ -39,6 +39,14 @@ log.setLevel(logging.ERROR) # only log errors in flask app, nothing else so that
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg']) # will only accept the following image types
 
 def resize(im):
+	"""_summary_
+
+	Args:
+		im (List): _description_
+
+	Returns:
+		_type_: _description_
+	"""
 	# print(im)
 	h, w, channels = im.shape
 	max_w = 500
@@ -48,10 +56,17 @@ def resize(im):
 	dims = (resized_w, resized_h)
 
 	resized_im = cv2.resize(im, dims)
-	print()
 	return resized_im
 
 def allowed_file(filename):
+	"""_summary_
+
+	Args:
+		filename (_type_): _description_
+
+	Returns:
+		_type_: _description_
+	"""
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 	
 @app.route('/')
@@ -60,6 +75,11 @@ def upload_form():
 
 @app.route('/', methods=['POST'])
 def upload_image():
+	"""_summary_
+
+	Returns:
+		_type_: _description_
+	"""
 	if 'file' not in request.files:
 		flash('No file part')
 		return redirect(request.url)
@@ -72,7 +92,6 @@ def upload_image():
 		filename = secure_filename(file.filename)
 		path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
 		im = cv2.imread(path) # read 
 		os.remove(path)
 		im = resize(im)
@@ -90,9 +109,19 @@ def upload_image():
 
 @app.route('/display/<filename>')
 def display_image(filename):
+	"""Display the uploaded image
+
+	Args:
+		filename (str): Filename of uploaded file
+
+	Returns:
+		redirect: _description_
+	"""
 	return redirect(url_for('static', filename='files/' + filename), code=301)
 
 def application():
+	"""Host the App on local IP Address (port 5000 by default)
+	"""
 	port = 5000
 	hostname=socket.gethostname()	
 	ip_addr=socket.gethostbyname(hostname)
