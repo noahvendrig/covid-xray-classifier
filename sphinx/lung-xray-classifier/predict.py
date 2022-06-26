@@ -7,8 +7,15 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 class Classifier:
-
+    """_summary_
+    """
     def __init__(self, model_path, img_paths):
+        """_summary_
+
+        Args:
+            model_path (_type_): _description_
+            img_paths (_type_): _description_
+        """
         self.model = tf.keras.models.load_model(model_path)
         self.labels = pickle.loads(open('labels.pickle', "rb").read())
         for img in img_paths:
@@ -16,6 +23,11 @@ class Classifier:
 
 
     def ImageToArray(self, file):
+        """_summary_
+
+        Args:
+            file (_type_): _description_
+        """
            # reads an image in the BGR format
         try:
             img_arr = cv2.imread(file)
@@ -27,6 +39,14 @@ class Classifier:
 
     
     def Classify(self, img):
+        """_summary_
+
+        Args:
+            img (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
         # actual_label = img.split("/")[-1]
         img_arr = self.ImageToArray(img)
         new_img = cv2.resize(img_arr, (150,150))
@@ -49,6 +69,14 @@ class Classifier:
 
 
 def predict(input):
+    """_summary_
+
+    Args:
+        input (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
 #     print("RUNNING MAIN")
     # if __name__ == '__main__':
     # Only executed if you start this script as the main script,

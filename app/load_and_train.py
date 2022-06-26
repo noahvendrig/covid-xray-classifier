@@ -25,6 +25,8 @@ from sklearn.model_selection import train_test_split
 
 import pickle
 
+"""_summary_
+"""    
 if tf.test.gpu_device_name():
     print('Default GPU Device: {}'.format(tf.test.gpu_device_name()))
 else:
@@ -39,7 +41,14 @@ else:
 
 
 class ModelGenerator:
+    """"_summary_"""
     def __init__(self, labels, path):
+        """_summary_
+
+        Args:
+            labels (_type_): _description_
+            path (_type_): _description_
+        """
         self.labels = labels
         print(labels)
         self.X = []
@@ -55,18 +64,27 @@ class ModelGenerator:
         self.MODEL_NAME = ""
 
     def ImageToArray(self, file):
+        """_summary_
+
+        Args:
+            file (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
         img_arr = cv2.imread(file)   # reads an image in the BGR format
         img_arr = cv2.cvtColor(img_arr, cv2.COLOR_BGR2RGB)   # BGR -> RGB
         return img_arr
 
     def ProcessImages(self):
+        """_summary_"""
         
         names = []  # not used, but just for seeing the file names
 
         for label in self.labels:
             # index cos doing all the files is too intensive
             
-            for filename in os.listdir(self.path+label+"/images/")[:3615] # only 3615 files available
+            for filename in os.listdir(self.path+label+"/images/")[:3615]: # only 3615 files available
                 # divide by 255 to normalise the data
                 file = str(f"{self.path}{label}/images/{filename}")
                 arr = self.ImageToArray(file)
@@ -78,6 +96,7 @@ class ModelGenerator:
             print(f"DONE: {label}")
 
     def ProcessArrays(self):
+        """_summary_"""
         self.X = np.array(self.X)
         self.X = self.X/255
         self.X = self.X.astype('float32')
@@ -88,9 +107,13 @@ class ModelGenerator:
         self.y = np_utils.to_categorical(self.y)
 
     def SplitDataset(self):
+        """_summary_
+        """
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X, self.y, test_size=0.2)
     
     def CreateModel(self):
+        """_summary_
+        """
         # print(self.labels)
         self.model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same', input_shape=(150, 150, 3))) # shape = X.shape[1:]
         self.model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
@@ -118,6 +141,8 @@ class ModelGenerator:
         
    
     def TrainModel(self):
+        """_summary_
+        """
         # print(self.X_train.shape)
         # print(self.y_train.shape)
 
@@ -130,10 +155,14 @@ class ModelGenerator:
         )
         
     def EvaluateModel(self):
+        """_summary_
+        """
         evaluate = self.model.evaluate(self.X_test, self.y_test, verbose=0)
         print(evaluate)
 
     def SaveModel(self):
+        """_summary_
+        """
 #         NAME = f"{conv_layer}-conv-{layer_size}-nodes-{dense_layer}-dense-{int(time.time())}"
         
         self.model.save(f"./6-conv-128-nodes-2-dense-{int(time.time())}.model")        
@@ -143,6 +172,8 @@ class ModelGenerator:
         f.close()
     
 if __name__ == '__main__':
+        """_summary_
+        """
     # Only executed if you start this script as the main script,
     # i.e. you enter 'python path/to/main.py' in a terminal.
     # Assuming you saved the script in the directory 'path/to'
@@ -156,4 +187,3 @@ if __name__ == '__main__':
     gen.TrainModel()
     gen.EvaluateModel()
     gen.SaveModel()
-    
