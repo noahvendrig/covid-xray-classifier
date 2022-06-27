@@ -7,14 +7,14 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 class Classifier:
-    """_summary_
+    """Classifier Class used to evaluate lung-xray images into either covid or normal
     """
     def __init__(self, model_path, img_paths):
-        """_summary_
+        """init function
 
         Args:
-            model_path (_type_): _description_
-            img_paths (_type_): _description_
+            model_path (str): Path to the CNN Model created in Tensorflow
+            img_paths (list): list of paths to the image to be evaluated by the model. Currently the list is only of one element
         """
         self.model = tf.keras.models.load_model(model_path)
         self.labels = pickle.loads(open('labels.pickle', "rb").read())
@@ -23,10 +23,10 @@ class Classifier:
 
 
     def ImageToArray(self, file):
-        """_summary_
+        """Converts image into a numpy array
 
         Args:
-            file (_type_): _description_
+            file (str): _description_
         """
            # reads an image in the BGR format
         try:
@@ -69,27 +69,19 @@ class Classifier:
 
 
 def predict(input):
-    """_summary_
+    """This is the main function that drives the creation of the prediction
 
     Args:
-        input (_type_): _description_
+        input (list): list of paths to the image to be evaluated by the model. Currently the list is only of one element
 
     Returns:
         _type_: _description_
     """
-#     print("RUNNING MAIN")
-    # if __name__ == '__main__':
-    # Only executed if you start this script as the main script,
-    # i.e. you enter 'python path/to/main.py' in a terminal.
-    # Assuming you saved the script in the directory 'path/to'
-    # and named it 'main.py'.
     # c = Classifier("6-conv-128-nodes-2-dense-1654694547.model", ["./dataset/normal/images/Normal-10000.png" , "./dataset/covid/images/COVID-3615.png"])
-
 
     # res = Classifier("6-conv-128-nodes-2-dense-1655171754.model", input)
     res = Classifier("6-conv-128-nodes-2-dense-1656148579.model", input)
     return res.prediction
-# main(["./dataset/normal/images/Normal-10000.png"])
 
 # print(main())
 # print(predict(["./dataset/normal/images/Normal-10000.png"]))

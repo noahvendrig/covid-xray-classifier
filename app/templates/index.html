@@ -29,8 +29,9 @@
             <form method="post" action="/" enctype="multipart/form-data">
                 <div class="cont">
 
-                    <dl> <!-- Allows user to browse system for image to upload -->
-                        <input type="file" class="filestyle" data-classButton="btn btn-primary" name="file" 
+                    <dl>
+                        <!-- Allows user to browse system for image to upload -->
+                        <input type="file" class="filestyle" data-classButton="btn btn-primary" name="file"
                             autocomplete="off" required>
                     </dl>
 
@@ -38,14 +39,15 @@
                         <input type="submit" value="Submit Image" class="btn btn-primary submit">
                     </p>
                 </div>
-                
+
             </form>
             {% if filename %}
-            <div class="prediction"> <!-- Displaying the predicted class when it has been generated -->
+            <div class="prediction">
+                <!-- Displaying the predicted class when it has been generated -->
                 <p><b>Prediction: {{ prediction }}</b></p>
             </div>
             {% endif %}
-        </div> 
+        </div>
 
         <div class="col upl-img right">
             <!-- <img src="static/files/covid-12.png"> -->
@@ -56,3 +58,7 @@
 
     </div>
 </body>
+
+<footer>
+    <!-- <a href="{{ url_for('../docs', filename='build/html/index.html') }}">Documentation</a> -->
+</footer>
