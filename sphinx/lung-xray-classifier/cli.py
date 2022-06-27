@@ -11,6 +11,8 @@ __pyver__ = '3.8.10'
 
 from app import application
 
+"""Script that is run from command line to launch the app"""
+
 if __name__ == "__main__":
     print("-----------------------------------------------------------------------------------------------------------------------")
     print(f"Developed by {__author__}, {__date__}")

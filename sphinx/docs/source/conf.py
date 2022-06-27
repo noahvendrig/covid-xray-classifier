@@ -13,7 +13,9 @@
 import os
 import sys
 # sys.path.insert(0, os.path.abspath('../../'))
-sys.path.insert(0, "F:\\Users\\elect_09l\\github\\covid-xray-classifier\\sphinx\\lung-xray-classifier\\")
+# sys.path.insert(0, "F:\\Users\\elect_09l\\github\\covid-xray-classifier\\sphinx\\lung-xray-classifier\\") # pc
+sys.path.insert(0, "C:\\Users\\elect\\github\\covid-xray-classifier\\sphinx\\lung-xray-classifier") # laptop
+
 
 for x in os.walk('../../lung-xray-classifier'):
   sys.path.insert(0, x[0])

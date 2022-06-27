@@ -5,8 +5,6 @@ import cv2
 from waitress import serve
 import sys
 import os
-
-import webbrowser
 from threading import Timer
 import webbrowser
 

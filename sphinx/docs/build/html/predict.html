@@ -79,7 +79,7 @@
 <dt class="sig sig-object py" id="predict.Classifier">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">predict.</span></span><span class="sig-name descname"><span class="pre">Classifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_paths</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#predict.Classifier" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>_summary_</p>
+<p>Classifier Class used to evaluate lung-xray images into either covid or normal</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="predict.Classifier.Classify">
 <span class="sig-name descname"><span class="pre">Classify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#predict.Classifier.Classify" title="Permalink to this definition"></a></dt>
@@ -100,10 +100,10 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="predict.Classifier.ImageToArray">
 <span class="sig-name descname"><span class="pre">ImageToArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#predict.Classifier.ImageToArray" title="Permalink to this definition"></a></dt>
-<dd><p>_summary_</p>
+<dd><p>Converts image into a numpy array</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>file</strong> (<em>_type_</em>) – _description_</p>
+<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – _description_</p>
 </dd>
 </dl>
 </dd></dl>
@@ -113,10 +113,10 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="predict.predict">
 <span class="sig-prename descclassname"><span class="pre">predict.</span></span><span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#predict.predict" title="Permalink to this definition"></a></dt>
-<dd><p>_summary_</p>
+<dd><p>This is the main function that drives the creation of the prediction</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>input</strong> (<em>_type_</em>) – _description_</p>
+<dd class="field-odd"><p><strong>input</strong> (<em>list</em>) – list of paths to the image to be evaluated by the model. Currently the list is only of one element</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>_description_</p>
