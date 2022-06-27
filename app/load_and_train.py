@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import cv2
-# from PIL import Image
 import os
 import time
 
