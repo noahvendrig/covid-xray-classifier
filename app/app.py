@@ -121,6 +121,7 @@ def display_image(filename):
 @app.route('/docs')
 @app.route('/')
 def docs():
+    
     # return 'you are in the docs page'
 	return redirect(url_for('static', filename='build/html/index.html'), code=302)
 
@@ -140,8 +141,6 @@ def application():
 		print()
 	except Exception as e:
 		print(e)
-
-	
 	
 
-application() # not needed since running from cli.py
+# application() # not needed since running from cli.py
