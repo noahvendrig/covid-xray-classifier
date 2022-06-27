@@ -19,6 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="User Manual" href="user-manual.html" />
     <link rel="prev" title="load_and_train module" href="load_and_train.html" /> 
 </head>
 
@@ -46,6 +47,9 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">predict module</a></li>
 </ul>
 </li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="user-manual.html">User Manual</a></li>
 </ul>
 
         </div>
@@ -83,16 +87,10 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="predict.Classifier.Classify">
 <span class="sig-name descname"><span class="pre">Classify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#predict.Classifier.Classify" title="Permalink to this definition"></a></dt>
-<dd><p>_summary_</p>
+<dd><p>Generates a prediction for the submitted image</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>img</strong> (<em>_type_</em>) – _description_</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>_description_</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>_type_</p>
+<dd class="field-odd"><p><strong>img</strong> (<em>str</em>) – Path to the image to be classified</p>
 </dd>
 </dl>
 </dd></dl>
@@ -100,10 +98,16 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="predict.Classifier.ImageToArray">
 <span class="sig-name descname"><span class="pre">ImageToArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#predict.Classifier.ImageToArray" title="Permalink to this definition"></a></dt>
-<dd><p>Converts image into a numpy array</p>
+<dd><p>Converts input image into a numpy array</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – _description_</p>
+<dd class="field-odd"><p><strong>file</strong> (<em>str</em>) – path to the image to be converted to numpy array</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>numpy array of the image</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>img_arr (numpy arr)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -113,16 +117,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="predict.predict">
 <span class="sig-prename descclassname"><span class="pre">predict.</span></span><span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#predict.predict" title="Permalink to this definition"></a></dt>
-<dd><p>This is the main function that drives the creation of the prediction</p>
+<dd><p>This is the main function that drives the generation of the prediction</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>input</strong> (<em>list</em>) – list of paths to the image to be evaluated by the model. Currently the list is only of one element</p>
+<dd class="field-odd"><p><strong>input</strong> (<em>list</em>) – list of paths to the image to be evaluated by the model. Currently the list is only of one element but can be further expanded to evaluate multiple images</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>_description_</p>
+<dd class="field-even"><p>‘prediction’ attribute of the Classifier Instance, which is the model prediction of either ‘Normal’ or ‘Covid’</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>_type_</p>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -134,6 +138,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="load_and_train.html" class="btn btn-neutral float-left" title="load_and_train module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="user-manual.html" class="btn btn-neutral float-right" title="User Manual" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

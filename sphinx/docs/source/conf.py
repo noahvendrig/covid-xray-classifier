@@ -13,8 +13,8 @@
 import os
 import sys
 # sys.path.insert(0, os.path.abspath('../../'))
-# sys.path.insert(0, "F:\\Users\\elect_09l\\github\\covid-xray-classifier\\sphinx\\lung-xray-classifier\\") # pc
-sys.path.insert(0, "C:\\Users\\elect\\github\\covid-xray-classifier\\sphinx\\lung-xray-classifier") # laptop
+sys.path.insert(0, "F:\\Users\\elect_09l\\github\\covid-xray-classifier\\sphinx\\lung-xray-classifier\\") # pc
+# sys.path.insert(0, "C:\\Users\\elect\\github\\covid-xray-classifier\\sphinx\\lung-xray-classifier") # laptop
 
 
 for x in os.walk('../../lung-xray-classifier'):
@@ -22,7 +22,7 @@ for x in os.walk('../../lung-xray-classifier'):
 
 
 
-print(sys.path)
+# print(sys.path)
 # -- Project information -----------------------------------------------------
 
 project = 'lung-xray-classifier'
@@ -38,7 +38,7 @@ release = '1.0.0'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon',]
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon',] # use autodoc
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 

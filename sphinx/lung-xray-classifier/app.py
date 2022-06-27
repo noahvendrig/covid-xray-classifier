@@ -1,5 +1,3 @@
-from flask import Flask
-
 from predict import predict
 import cv2
 from waitress import serve
@@ -8,15 +6,7 @@ import os
 from threading import Timer
 import webbrowser
 
-UPLOAD_FOLDER = 'static/files/'
-
-templatesDir = './templates'
-staticDir = './static'
-app = Flask(__name__, template_folder=templatesDir, static_folder=staticDir)
-
-app.secret_key = "secret key"
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+UPLOAD_FOLDER = 'static/files/' # folder to store uploaded images
 
 from pathlib import Path
 import socket
@@ -25,11 +15,18 @@ import socket
 import os
 # from app import app
 import urllib.request
-from flask import Flask, flash, request, redirect, url_for, render_template, send_from_directory
+from flask import Flask, flash, request, redirect, url_for, render_template # import flask components
 from werkzeug.utils import secure_filename
 
 import logging
 
+templatesDir = './templates' # directory where the templates are stored
+staticDir = './static' # directory for static files
+app = Flask(__name__, template_folder=templatesDir, static_folder=staticDir) # create the Flask app
+
+app.secret_key = "secret key" # needed for flask sessions
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER # set the upload folder
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16 MB
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR) # only log errors in flask app, nothing else so that console isn't cluttered
@@ -37,72 +34,72 @@ log.setLevel(logging.ERROR) # only log errors in flask app, nothing else so that
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg']) # will only accept the following image types
 
 def resize(im):
-	"""_summary_
+	"""Resizes image to a width of 500 so that it can be displayed on the webpage
 
 	Args:
-		im (List): _description_
+		im (numpy arr): Input image as an array
 
 	Returns:
-		_type_: _description_
+		numpy arr: Resized image
 	"""
-	# print(im)
-	h, w, channels = im.shape
-	max_w = 500
-	ratio = h/w
+	h, w, channels = im.shape # get the height, width and channels of the image
+	max_w = 500 # maximum width
+	ratio = h/w # ratio of height to width
 
 	resized_h, resized_w = int(round(max_w*ratio)), max_w
-	dims = (resized_w, resized_h)
+	dims = (resized_w, resized_h) # get dimensions that retain image's aspect ratio but have maximum width of 500
 
-	resized_im = cv2.resize(im, dims)
+	resized_im = cv2.resize(im, dims) # resize image to specified dimensions
 	return resized_im
 
 def allowed_file(filename):
-	"""_summary_
+	"""Check if file is allowed to be uploaded (filetypes is either png, jpg or jpeg)
 
 	Args:
-		filename (_type_): _description_
+		filename (str): name of the file to be uploaded (e.g. myimage.jpg)
 
 	Returns:
-		_type_: _description_
+		bool: Whether the file is allowed to be uploaded or not
 	"""
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 	
 @app.route('/')
 def upload_form():
+	"""Displays the main page with the file upload form
+	"""
 	return render_template('index.html', )
 
 @app.route('/', methods=['POST'])
 def upload_image():
-	"""_summary_
+	"""Upload the image selected by the user
 
 	Returns:
-		_type_: _description_
+		str: filename of the image uploaded
+		str: predictions of the image uploaded
 	"""
 	if 'file' not in request.files:
-		flash('No file part')
+		flash('No file part') # display error message
 		return redirect(request.url)
 	file = request.files['file']
 	if file.filename == '':	
-		flash('No image selected for uploading')
+		flash('No image selected for uploading') # display error message
 		return redirect(request.url)
 
-	if file and allowed_file(file.filename):
+	if file and allowed_file(file.filename): # if the file is allowed and has been uploaded 
 		filename = secure_filename(file.filename)
-		path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+		path = os.path.join(app.config['UPLOAD_FOLDER'], filename) # save the file to the upload folder
+		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename)) 
 		im = cv2.imread(path) # read 
-		os.remove(path)
-		im = resize(im)
-		cv2.imwrite(path, im)
-
-		im = [im]
+		os.remove(path) #delete the old file
+		im = resize(im) # resize the image to be displayed
+		cv2.imwrite(path, im) # save the image locally
 		print(f"Image Saved To {path}")
-		prediction = predict([path])
+		prediction = predict([path]) # predict the image
 		print(f"Prediction: {prediction}")
 		return render_template('index.html', filename=filename, prediction=prediction)
 
 	else:
-		flash('Allowed image types are -> png, jpg, jpeg, gif')
+		flash('Allowed image types are -> png, jpg, jpeg, gif') # display error message if the filetype is not allowed
 		return redirect(request.url)
 
 @app.route('/display/<filename>')
@@ -112,18 +109,15 @@ def display_image(filename):
 
 	Args:
 		filename (str): Filename of uploaded file
-
-	Returns:
-		redirect: _description_
 	"""
 	return redirect(url_for('static', filename='files/' + filename), code=301)
 
 @app.route('/docs')
 @app.route('/')
 def docs():
-    # return 'you are in the docs page'
+	"""Redirect the user to the documentation page (/docs)
+	"""
 	return redirect(url_for('static', filename='build/html/index.html'), code=302)
-
 
 def application():
 	"""Host the App on local IP Address (port 5000 by default)
@@ -137,11 +131,8 @@ def application():
 	try:
 		# serve(app,  host="0.0.0.0", port=5000)
 		app.run(debug=True, host="0.0.0.0") # only for development
-		print()
 	except Exception as e:
 		print(e)
-
-	
 	
 
-#application() # not needed since running from cli.py
+# application() # not needed since running from cli.py
