@@ -1,7 +1,0 @@
-Contact Developer
-=================
-.. toctree::
-   :maxdepth: 2
-   :caption: ugh:
-
-`Contact Developer <http://noahvendrig.com#contact>`__

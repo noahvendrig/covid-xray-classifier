@@ -10,7 +10,7 @@ UPLOAD_FOLDER = 'static/files/' # folder to store uploaded images
 
 from pathlib import Path
 import socket
-# [f.unlink() for f in Path("./static/files").glob("*") if f.is_file()]  #remove all files in the folder
+# [f.unlink() for f in Path("./static/files").glob("*") if f.is_file()]  #remove all files in the folder not needed right now
 
 import os
 # from app import app
@@ -126,11 +126,11 @@ def application():
 	hostname=socket.gethostname()	
 	ip_addr=socket.gethostbyname(hostname)
 
-	#webbrowser.open(f"http://{ip_addr}:{port}", new=1) # opens the app in a new browser window
+	webbrowser.open(f"http://{ip_addr}:{port}", new=1) # opens the app in a new browser window
 	print(f"App Running at: {ip_addr}:{port}") # indicate where the app is hosted
 	try:
-		# serve(app,  host="0.0.0.0", port=5000)
-		app.run(debug=True, host="0.0.0.0") # only for development
+		serve(app,  host="0.0.0.0", port=5000)
+		# app.run(debug=True, host="0.0.0.0") # only for development
 	except Exception as e:
 		print(e)
 	

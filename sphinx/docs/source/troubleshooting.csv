@@ -1,0 +1,3 @@
+Issue,Suggested Solution
+Can't connect to app / App hasn't opened in browser,"Go to the console which the .exe file opened, and copy the displayed ip at which the app is hosted. Paste the IP address as a link into a webbrowser."
+Image isn't supported,"Please upload an image with file extensions: png, jpg, or jpeg"
