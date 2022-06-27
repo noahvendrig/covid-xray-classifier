@@ -122,7 +122,7 @@ def display_image(filename):
 @app.route('/')
 def docs():
     # return 'you are in the docs page'
-	return redirect(url_for('../static/build/html/index.html'), code=302)
+	return redirect(url_for('static', filename='build/html/index.html'), code=302)
 
 
 def application():
@@ -132,7 +132,7 @@ def application():
 	hostname=socket.gethostname()	
 	ip_addr=socket.gethostbyname(hostname)
 
-	webbrowser.open(f"http://{ip_addr}:{port}", new=1) # opens the app in a new browser window
+	#webbrowser.open(f"http://{ip_addr}:{port}", new=1) # opens the app in a new browser window
 	print(f"App Running at: {ip_addr}:{port}") # indicate where the app is hosted
 	try:
 		# serve(app,  host="0.0.0.0", port=5000)

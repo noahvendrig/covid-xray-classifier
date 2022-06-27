@@ -25,7 +25,7 @@ import socket
 import os
 # from app import app
 import urllib.request
-from flask import Flask, flash, request, redirect, url_for, render_template
+from flask import Flask, flash, request, redirect, url_for, render_template, send_from_directory
 from werkzeug.utils import secure_filename
 
 import logging
@@ -107,6 +107,7 @@ def upload_image():
 
 @app.route('/display/<filename>')
 def display_image(filename):
+
 	"""Display the uploaded image
 
 	Args:
@@ -117,6 +118,13 @@ def display_image(filename):
 	"""
 	return redirect(url_for('static', filename='files/' + filename), code=301)
 
+@app.route('/docs')
+@app.route('/')
+def docs():
+    # return 'you are in the docs page'
+	return redirect(url_for('static', filename='build/html/index.html'), code=302)
+
+
 def application():
 	"""Host the App on local IP Address (port 5000 by default)
 	"""
@@ -124,15 +132,16 @@ def application():
 	hostname=socket.gethostname()	
 	ip_addr=socket.gethostbyname(hostname)
 
-	webbrowser.open(f"http://{ip_addr}:{port}", new=1) # opens the app in a new browser window
+	#webbrowser.open(f"http://{ip_addr}:{port}", new=1) # opens the app in a new browser window
 	print(f"App Running at: {ip_addr}:{port}") # indicate where the app is hosted
 	try:
-		serve(app,  host="0.0.0.0", port=5000)
+		# serve(app,  host="0.0.0.0", port=5000)
+		app.run(debug=True, host="0.0.0.0") # only for development
 		print()
 	except Exception as e:
 		print(e)
 
-	# app.run(debug=True, host="0.0.0.0") # only for development
+	
 	
 
-application() # not needed since running from cli.py
+#application() # not needed since running from cli.py
