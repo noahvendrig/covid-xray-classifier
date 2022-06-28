@@ -1,14 +1,11 @@
 Python Packages Used
-====================
+=======================
 .. toctree::
-   :maxdepth: 3
-	  
-   tensorflow
-   opencv
-   numpy
-   pandas
-   scikit-learn
-   matplotlib
+   :maxdepth: 2
+
+   train-model
+   generate-prediction
+   flask-app
 	  
  
       

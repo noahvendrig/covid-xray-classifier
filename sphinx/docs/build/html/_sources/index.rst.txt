@@ -12,7 +12,7 @@ Welcome to lung-xray-classifier's documentation!
 
 
 Indices and tables
-==================
+=======================
 
 * :ref:`genindex`
 * :ref:`modindex`

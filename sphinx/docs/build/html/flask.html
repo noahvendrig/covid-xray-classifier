@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MatPlotLib &mdash; lung-xray-classifier 1.0.0 documentation</title>
+  <title>Flask &mdash; lung-xray-classifier 1.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="User Manual" href="user-manual.html" />
-    <link rel="prev" title="SciKit-Learn" href="scikit-learn.html" /> 
+    <link rel="next" title="Waitress" href="waitress.html" />
+    <link rel="prev" title="Flask Application" href="flask-app.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,15 +42,18 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="modules.html">lung-xray-classifier</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="python-packages.html">Python Packages Used</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="tensorflow.html">Tensorflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="opencv.html">OpenCV</a></li>
-<li class="toctree-l2"><a class="reference internal" href="numpy.html">Numpy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pandas.html">Pandas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scikit-learn.html">SciKit-Learn</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">MatPlotLib</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="train-model.html">Loading Data and Training the model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generate-prediction.html">Generating a prediction</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="flask-app.html">Flask Application</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Flask</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usage-in-app">Usage in app</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docs">Docs</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="waitress.html">Waitress</a></li>
+<li class="toctree-l3"><a class="reference internal" href="werkzeug.html">Werkzeug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="predict.html">predict module</a></li>
 </ul>
 </li>
 </ul>
@@ -73,9 +76,10 @@
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="python-packages.html">Python Packages Used</a> &raquo;</li>
-      <li>MatPlotLib</li>
+          <li><a href="flask-app.html">Flask Application</a> &raquo;</li>
+      <li>Flask</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/matplotlib.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/flask.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -83,17 +87,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="matplotlib">
-<h1>MatPlotLib<a class="headerlink" href="#matplotlib" title="Permalink to this heading"></a></h1>
+  <section id="flask">
+<h1>Flask<a class="headerlink" href="#flask" title="Permalink to this heading"></a></h1>
 <section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this heading"></a></h2>
 </section>
-<section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
+<section id="usage-in-app">
+<h2>Usage in app<a class="headerlink" href="#usage-in-app" title="Permalink to this heading"></a></h2>
 </section>
-<section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pandas</span></code></p>
+<section id="docs">
+<h2>Docs<a class="headerlink" href="#docs" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf">https://www.tensorflow.org/api_docs/python/tf</a></p>
 </section>
 </section>
 
@@ -101,8 +105,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="scikit-learn.html" class="btn btn-neutral float-left" title="SciKit-Learn" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="user-manual.html" class="btn btn-neutral float-right" title="User Manual" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="flask-app.html" class="btn btn-neutral float-left" title="Flask Application" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="waitress.html" class="btn btn-neutral float-right" title="Waitress" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

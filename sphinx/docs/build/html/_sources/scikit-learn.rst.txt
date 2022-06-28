@@ -5,10 +5,10 @@ Description
 ------------
 scikit-learn is a Python module for machine learning built on top of SciPy
 
-Usage
-------
+Usage in app
+-----------------
 
 
-Installation
+Docs
 --------------
-``pip install pandas``
+`<https://scikit-learn.org/stable/>`_

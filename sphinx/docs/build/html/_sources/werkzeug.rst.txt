@@ -1,14 +1,13 @@
-Pandas
+Werkzeug
 ==================
 
 Description
 ------------
 
 Usage in app
------------------
-
+----------------
 
 
 Docs
 --------------
-`<https://pandas.pydata.org/docs/>`_
+`<https://werkzeug.palletsprojects.com/en/2.1.x/>`_

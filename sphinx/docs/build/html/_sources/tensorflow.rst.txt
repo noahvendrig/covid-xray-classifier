@@ -4,10 +4,10 @@ Tensorflow
 Description
 ------------
 
-Usage
-------
+Usage in app
+----------------
 
 
-Installation
+Docs
 --------------
-``pip install pandas``
+`<https://www.tensorflow.org/api_docs/python/tf>`_

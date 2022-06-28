@@ -2,12 +2,12 @@ Numpy
 ==================
 
 Description
-------------
+-----------------------
+
 
 Usage
-------
+-----------------
 
-
-Installation
+Docs
 --------------
-``pip install pandas``
+`<https://numpy.org/doc/>`_

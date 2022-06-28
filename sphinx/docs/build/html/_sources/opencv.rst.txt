@@ -3,8 +3,8 @@ OpenCV
 Description
 ------------
 
-Usage
-------
+Usage in app
+-----------------
 
 
 Docs
