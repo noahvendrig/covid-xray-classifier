@@ -44,6 +44,7 @@ class Classifier:
             os._exit(0) # exit the program but no error message to clog terminal when debuggig
 
     
+
     def Classify(self, img):
         #
         """Generates a prediction for the submitted image
