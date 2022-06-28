@@ -1,22 +1,19 @@
-from predict import predict
-import cv2
-from waitress import serve # v2.1.2
-import sys
+from predict import predict # v1.0.0 by Noah Vendrig (06/2022) - predict function from './predict.py'
+import cv2 # v4.5.5 by Intel Corporation, Willow Garage, Itseez (06/2000) - Used for image processing: converting RGB images to numpy arrays and resizing images so that they are compatible with the model.
+from waitress import serve # v2.1.2 by Zope Foundation and Contributors (30/12/2011) - Production WSGI server for the web app.
 import os
-from threading import Timer
 import webbrowser
 
 UPLOAD_FOLDER = 'static/files/' # folder to store uploaded images
 
-from pathlib import Path
 import socket
+
+#from pathlib import Path
 # [f.unlink() for f in Path("./static/files").glob("*") if f.is_file()]  #remove all files in the folder not needed right now
 
 import os
-# from app import app
-import urllib.request
-from flask import Flask, flash, request, redirect, url_for, render_template # 
-from werkzeug.utils import secure_filename # v2.1.2
+from flask import Flask, flash, request, redirect, url_for, render_template # v2.1.2 by Armin Ronacher (01/04/2010) - Allows for the creation of the GUI as a web application hosted on local IP
+from werkzeug.utils import secure_filename # v2.1.2 by Armin Ronacher (10/12/2007) - Create WSGI server for Flask
 
 import logging
 
@@ -88,8 +85,8 @@ def upload_image():
 	if file and allowed_file(file.filename): # if the file is allowed and has been uploaded 
 		filename = secure_filename(file.filename)
 		path = os.path.join(app.config['UPLOAD_FOLDER'], filename) # save the file to the upload folder
-		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename)) 
-		im = cv2.imread(path) # read 
+		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+		im = cv2.imread(path) # read image from disk into array
 		os.remove(path) #delete the old file
 		im = resize(im) # resize the image to be displayed
 		cv2.imwrite(path, im) # save the image locally
@@ -122,17 +119,17 @@ def docs():
 def application():
 	"""Host the App on local IP Address (port 5000 by default)
 	"""
-	port = 5000
+	port = 5000 # my favourite port
 	hostname=socket.gethostname()	
-	ip_addr=socket.gethostbyname(hostname)
+	ip_addr=socket.gethostbyname(hostname) # get ip of the user's machine
 
 	webbrowser.open(f"http://{ip_addr}:{port}", new=1) # opens the app in a new browser window
 	print(f"App Running at: {ip_addr}:{port}") # indicate where the app is hosted
 	try:
-		serve(app,  host="0.0.0.0", port=5000)
+		serve(app,  host="0.0.0.0", port=5000) # for production
 		# app.run(debug=True, host="0.0.0.0") # only for development
 	except Exception as e:
-		print(e)
+		print(e) # oh no there was an error!!
 	
 
 # application() # not needed since running from cli.py

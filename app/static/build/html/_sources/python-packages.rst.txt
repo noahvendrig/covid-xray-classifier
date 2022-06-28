@@ -1,7 +1,11 @@
 Python Packages Used
-====================
-#. Making Model
-   .. toctree::
-      :maxdepth: 3
+=======================
+.. toctree::
+   :maxdepth: 2
+
+   train-model
+   generate-prediction
+   flask-app
+	  
  
-      matplotlib
+      

@@ -4,4 +4,6 @@ app/dataset/*
 */.ipynb_checkpoints/*
 .vscode/
 __pycache__/
+builds/
+app/output
 
