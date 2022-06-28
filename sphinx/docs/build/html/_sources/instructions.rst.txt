@@ -11,7 +11,7 @@ Launching the Application
 
     .. image:: ./_static/tutorial/1.PNG
 
-#. Wait for the app to automatically open in your web browser. If it doesn't, copy the IP displayed in the terminal titled 'cli.exe'	
+#. Wait for the app to automatically open in your web browser. If it doesn't, copy the IP displayed in the terminal titled 'cli.exe' and paste it into your browser	
 
     .. image:: ./_static/tutorial/2.PNG
 
