@@ -1,7 +1,14 @@
 Python Packages Used
 ====================
-#. Making Model
-   .. toctree::
-      :maxdepth: 3
+.. toctree::
+   :maxdepth: 3
+	  
+   tensorflow
+   opencv
+   numpy
+   pandas
+   scikit-learn
+   matplotlib
+	  
  
-      matplotlib
+      
