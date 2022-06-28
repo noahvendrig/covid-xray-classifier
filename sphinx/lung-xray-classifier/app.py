@@ -1,6 +1,6 @@
 from predict import predict
 import cv2
-from waitress import serve
+from waitress import serve # v2.1.2
 import sys
 import os
 from threading import Timer
@@ -10,13 +10,13 @@ UPLOAD_FOLDER = 'static/files/' # folder to store uploaded images
 
 from pathlib import Path
 import socket
-# [f.unlink() for f in Path("./static/files").glob("*") if f.is_file()]  #remove all files in the folder
+# [f.unlink() for f in Path("./static/files").glob("*") if f.is_file()]  #remove all files in the folder not needed right now
 
 import os
 # from app import app
 import urllib.request
-from flask import Flask, flash, request, redirect, url_for, render_template # import flask components
-from werkzeug.utils import secure_filename
+from flask import Flask, flash, request, redirect, url_for, render_template # 
+from werkzeug.utils import secure_filename # v2.1.2
 
 import logging
 

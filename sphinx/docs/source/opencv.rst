@@ -2,7 +2,7 @@ OpenCV
 ==================
 Description
 ------------
-Large open-source library for the computer vision, machine learning, and image processing.
+Large open-source library for the computer vision, machine learning, and image processing. It is used in a wide range of applications from machine vision, image processing, computer vision, and robotics.
 
 Usage in app
 -----------------

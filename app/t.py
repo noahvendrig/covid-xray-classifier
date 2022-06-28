@@ -36,11 +36,11 @@ class ModelGenerator:
 			labels (_type_): _description_
 			path (_type_): _description_
 		"""
-		self.labels = labels
-		print(labels)
+		self.LABELS = labels
+		print(f"Labels:{labels}")
 		self.X = []
 		self.y = []
-		self.path = path
+		self.PATH = path
 
 		self.X_train = []
 		self.X_test = []
@@ -66,13 +66,13 @@ class ModelGenerator:
 			print("Please install GPU version of TF")
 
 	def ImageToArray(self, file):
-		"""_summary_
+		"""Converts an image from RGB to numpy array so that it can be processed.
 
 		Args:
-			file (_type_): _description_
+			file (str): Path to the file to be converted to an array
 
 		Returns:
-			_type_: _description_
+			numpy arr: Numpy array of the image
 		"""
 		img_arr = cv2.imread(file)   # reads an image in the BGR format
 		img_arr = cv2.cvtColor(img_arr, cv2.COLOR_BGR2RGB)   # BGR -> RGB
@@ -80,17 +80,16 @@ class ModelGenerator:
 
 	def ProcessImages(self):
 		""" Generate the array of all the images in the dataset and t array with the corresponding labels  """
-		names = []  # not used, but just for seeing the file names
 
-		for label in self.labels: # iterate through the dataset
+		for label in self.LABELS: # iterate through the dataset
 
-			for filename in os.listdir(self.path+label+"/images/")[:30]:#[:3615]: # only 3615 files available in covid dataset, need to limit so that for loop doesnt try and iterate further since normal dataset has 10,000 imgs
+			for filename in os.listdir(self.PATH+label+"/images/")[:36]: # only 3615 files available in covid dataset, need to limit so that for loop doesnt try and iterate further since normal dataset has 10,000 imgs
 				# divide by 255 to normalise the data
-				file = str(f"{self.path}{label}/images/{filename}")
+				file = str(f"{self.PATH}{label}/images/{filename}")
 				arr = self.ImageToArray(file)
 				# having issues with appending np array (it clears the array each time, so we conver to python list first and then make the whole thing a np array later
 				arr = arr[::2, ::2].tolist() # Reduce size by factor of 2, convert to list so we can append and also shrink resolution to 150x150
-				label_index = self.labels.index(label) # get the index of the label
+				label_index = self.LABELS.index(label) # get the index of the label
 				self.X.append(arr) # add to array
 				self.y = np.append(self.y, label_index)
 			print(f"DONE: {label}")
@@ -114,7 +113,7 @@ class ModelGenerator:
 	def BuildModel(self):
 		"""Add layers to the model
 		"""
-		# print(self.labels)
+		# print(self.LABELS)
 		self.model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same', input_shape=(150, 150, 3))) # shape = X.shape[1:] # Add convolution layer
 		self.model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
 		self.model.add(MaxPooling2D((2, 2))) # Add max pooling layer
@@ -128,7 +127,7 @@ class ModelGenerator:
 		# example output part of the model
 		self.model.add(Flatten()) # transform pooled feature map that is generated in the pooling step into a 1D vector
 		self.model.add(Dense(128, activation='relu', kernel_initializer='he_uniform')) # dense layer
-		self.model.add(Dense(len(self.labels), activation='softmax')) # final layer dense 2 since we have 2 labels
+		self.model.add(Dense(len(self.LABELS), activation='softmax')) # final layer dense 2 since we have 2 labels
 
 		# compile model
 		self.model.compile( # compile the model
@@ -140,9 +139,9 @@ class ModelGenerator:
 
 
 	def TrainModel(self):
-		""" Trains the model for 20 epochs using the dataset
+		""" Trains the model using the dataset provided: epochs=20, batch size=32, validation split=0.2
 		Returns:
-			_type_: _description_
+			_type_: Model history
 		"""
 		# print(self.X_train.shape)
 		# print(self.y_train.shape)
@@ -173,7 +172,7 @@ class ModelGenerator:
 		self.model.save(f"./6-conv-128-nodes-2-dense-{int(time.time())}.model") # save model to file
 
 		f = open('labels.pickle', "wb")
-		f.write(pickle.dumps(self.labels)) # serialises the labels so that it can be stored on disk and later deserialised for use.
+		f.write(pickle.dumps(self.LABELS)) # serialises the labels so that it can be stored on disk and later deserialised for use.
 		f.close()
     
 if __name__ == '__main__':

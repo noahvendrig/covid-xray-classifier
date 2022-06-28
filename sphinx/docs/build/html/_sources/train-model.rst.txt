@@ -6,7 +6,7 @@ Loading Data and Training the model
    tensorflow
    opencv
    numpy
-   pandas
+   keras
    scikit-learn
 	  
  
