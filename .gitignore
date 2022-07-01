@@ -6,5 +6,5 @@ app/dataset/*
 ./__pycache__/*
 builds/
 app/output
-./devstuff/*
+lung-xray-classifier.zip/*
 
