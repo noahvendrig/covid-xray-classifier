@@ -20,7 +20,7 @@ class Classifier:
             img_paths (list): list of paths to the image to be evaluated by the model. Currently the list is only of one element
         """
         self.model = tf.keras.models.load_model(model_path) # Loads a compiled Keras model instance
-        self.labels = pickle.loads(open('labels.pickle', "rb").read()) # deserialise the pickle object so that the labels can be used in script
+        self.labels = pickle.loads(open(os.getcwd()+'\\app\\labels.pickle', "rb").read()) # deserialise the pickle object so that the labels can be used in script
         for img in img_paths: # iterate through list of img paths
             self.Classify(img) # call the classify function for every image inputted (currently only one image)
 
@@ -82,7 +82,7 @@ def predict(input):
     # c = Classifier("6-conv-128-nodes-2-dense-1654694547.model", ["./dataset/normal/images/Normal-10000.png" , "./dataset/covid/images/COVID-3615.png"])
 
     # res = Classifier("6-conv-128-nodes-2-dense-1655171754.model", input)
-    res = Classifier("6-conv-128-nodes-2-dense-1656432632.model", input) # create instance of the Classifier class that uses the previously trained model
+    res = Classifier(os.getcwd()+"\\app\\6-conv-128-nodes-2-dense-1656432632.model", input) # create instance of the Classifier class that uses the previously trained model
 
     return res.prediction # return the prediction made by the model to the UI
 

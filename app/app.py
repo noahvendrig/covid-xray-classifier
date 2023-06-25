@@ -4,7 +4,7 @@ from waitress import serve # v2.1.2 by Zope Foundation and Contributors (30/12/2
 import os
 import webbrowser
 
-UPLOAD_FOLDER = 'static/files/' # folder to store uploaded images
+UPLOAD_FOLDER = '/static/files/' # folder to store uploaded images
 
 import socket
 
@@ -85,13 +85,17 @@ def upload_image():
 	if file and allowed_file(file.filename): # if the file is allowed and has been uploaded 
 		filename = secure_filename(file.filename)
 		path = os.path.join(app.config['UPLOAD_FOLDER'], filename) # save the file to the upload folder
-		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-		im = cv2.imread(path) # read image from disk into array
-		os.remove(path) #delete the old file
+
+		cwd = os.getcwd().replace("\\", "/")
+		abs_path = cwd+"/app"+os.path.join(app.config['UPLOAD_FOLDER'], filename)
+		# print(abs_path)
+		file.save(abs_path)
+		im = cv2.imread(abs_path) # read image from disk into array
+		os.remove(abs_path) #delete the old file
 		im = resize(im) # resize the image to be displayed
-		cv2.imwrite(path, im) # save the image locally
-		print(f"Image Saved To {path}")
-		prediction = predict([path]) # predict the image
+		cv2.imwrite(abs_path, im) # save the image locally
+		print(f"Image Saved To {abs_path}")
+		prediction = predict([abs_path]) # predict the image
 		print(f"Prediction: {prediction}")
 		return render_template('index.html', filename=filename, prediction=prediction)
 
