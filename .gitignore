@@ -4,4 +4,4 @@ builds/
 app/output
 lung-xray-classifier.zip/*
 ./devstuff/*
-
+/devstuff
